@@ -1,8 +1,7 @@
 import pandas as pd
 import numpy as np
+import pywt 
 from sklearn.model_selection import train_test_split
-
-
 
 def load_data(x_path): 
     return pd.read_csv(x_path)
@@ -15,7 +14,10 @@ def split_data(data):
     return train_test_split(x, y, test_size=.8)
 
 
-def preprocess_x(data):
-    #something with wavelets
+def waveletTransform(data):
+    #creating Daubechies wavelet objext
+    wavelet = pywt.Wavelet('db1')
+
+    
     return data
 

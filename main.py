@@ -5,7 +5,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import train_test_split
 from sklearn import tree
 
-from data import load_data, preprocess_x, split_data
+from data import load_data, waveletTransform, split_data
 
 
 def main():
@@ -16,8 +16,8 @@ def main():
     train_x, train_y, test_x, test_y = split_data(data)
 
     #might need this to anylize the data with wavelets
-    processed_x_train = preprocess_x(train_x)
-    processed_x_test = preprocess_x(test_x)
+    processed_x_train = waveletTransform(train_x)
+    processed_x_test = waveletTransform(test_x)
 
 
     #train and test the model
