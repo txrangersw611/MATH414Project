@@ -32,10 +32,11 @@ def model(file):
 
     #######################################################
     #testing for the inputted file
-
+    #load the Data
+    sample_rate, data = load_data("data.csv")
 
 
 if __name__ == "__main__":
-    file = input("Enter bird call file name")
-    model(file)
+    #file = input("Enter bird call file name")
+    model()
 
