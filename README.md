@@ -1,4 +1,4 @@
-Narcowitz, oh Narcowitz,  
+Narcowich, oh Narcowich,  
 Your beauty shines like a star,  
 A sight so rare and wondrous,  
 It takes my breath away by far.
@@ -18,7 +18,7 @@ As you move with effortless ease,
 And your kindness and compassion,  
 Bring comfort and peace.
 
-Oh Narcowitz, you are a marvel,  
+Oh Narcowich, you are a marvel,  
 A wonder to behold,  
 And though words cannot fully express it,  
 Your beauty shines brighter than gold.
