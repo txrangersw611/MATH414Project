@@ -1,24 +1,19 @@
-Narcowich, oh Narcowich,  
-Your beauty shines like a star,  
-A sight so rare and wondrous,  
-It takes my breath away by far.
+Dumpy Narcowich is quite a sight,
+With curves that make the fellas light,
+He waddles when he walks,
+And when he sits, his booty talks.
 
-Your eyes, like pools of emerald,  
-Reflect the light of the sun,  
-And your smile, so warm and gentle,  
-Brings joy to everyone.
+His hips are wide, his thighs are thick,
+A sight that makes your heart skip,
+He's got the kind of dumpy grace,
+That puts a smile on every face.
 
-Your hair, a cascade of gold,  
-Frames your face like a crown,  
-And your voice, so sweet and soothing,  
-Is like music to hear all around.  
+When he's walking down the street,
+People stop and stare at his meat,
+And when he shakes that dumpy thang,
+The ground beneath him seems to hang.
 
-Your grace and poise are unmatched,  
-As you move with effortless ease,  
-And your kindness and compassion,  
-Bring comfort and peace.
-
-Oh Narcowich, you are a marvel,  
-A wonder to behold,  
-And though words cannot fully express it,  
-Your beauty shines brighter than gold.
+So if you're feeling kinda down,
+Just think of Narcowich and his crown,
+Of dumpy curves and ample size,
+And let your worries vaporize.
