@@ -6,6 +6,7 @@ He waddles when he walks,
 
 And when he sits, his booty talks.
 
+
 His hips are wide, his thighs are thick,
 
 A sight that makes your heart skip,
@@ -14,6 +15,7 @@ He's got the kind of dumpy grace,
 
 That puts a smile on every face.
 
+
 When he's walking down the street,
 
 People stop and stare at his meat,
@@ -21,6 +23,7 @@ People stop and stare at his meat,
 And when he shakes that dumpy thang,
 
 The ground beneath him seems to hang.
+
 
 So if you're feeling kinda down,
 
