@@ -8,29 +8,27 @@ from data import load_data, waveletTransform, split_data
 
 
 def model():
-    #load the Data (data is a 2D array of all the features)
+    #load the Data (data is a array of all the energies of each wave)
     data = load_data("data")
 
-    #print(data)
 
     #split into train and test data
-    #train_x, train_y, test_x, test_y = split_data(data)
-
-    # #might need this to anylize the data with wavelets
-    # processed_x_train = waveletTransform(train_x)
-    # processed_x_test = waveletTransform(test_x)
+    train_x, test_x, train_y, test_y = split_data(data)
 
 
-    # #train and test the model
-    # model = tree.DecisionTreeClassifier() #need to decide what model were gonna do (how are we gonna include wavelts)
-    # model.fit(processed_x_train, train_y)
+    #train and test the model
+    model = tree.DecisionTreeClassifier() #need to decide what model were gonna do (how are we gonna include wavelts)
+    model.fit(train_x.reshape(-1,1), train_y)
 
-    # #get accuracy from model
-    # preds = model.predict(processed_x_test)
-    # score = accuracy_score(test_y, preds)
 
-    # #print results
-    # print("The accuracy of the model is", score)
+    #get accuracy from model
+    preds = model.predict(test_x.reshape(-1,1))
+    score = accuracy_score(test_y, preds)
+
+
+    #print results
+    print("The accuracy of the model is", score)
+
 
     #######################################################
     #testing for the inputted file

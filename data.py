@@ -9,36 +9,37 @@ def load_data(x_path):
     #gets all the files in the directory
     files = os.listdir(x_path)
 
-    #data is 3D array, each index is the wav files transformed into a 2D array of amplitudes (I think)
-    data = np.empty(0) 
-
-    # name = os.path.join(x_path, "ZM08.wav")
-    # rate, data = wavfile.read(name)
-    # print(data.shape)
+    #data is array of energy in each wave
+    data = np.empty(58)
 
     #running read function on every file in directory
-    for file in files:
+    for i, file in enumerate(files):
         name = os.path.join(x_path, file)
         rate, amplitudes = wavfile.read(name)
-        print(amplitudes)
-        data = np.append(data, amplitudes)
-        print(data)
-        print("-------------------")
-
+        data[i] = waveletTransform(amplitudes)
 
     return data
 
 
 def split_data(data):
-    y = np.empty(100)
+    """
+    CC is NORTHERN CARDINAL
+    CR is BLUE JAY
+    DP is DOWNY WOODPECKER
+    ST is AMERICAN GOLDFINCH
+    ZM is MOURNING DOVE
+    """
+    y = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+         2,2,2,2,2,2,2,2,2,2,2,2,
+         3,3,3,3,3,3,3,3,3,3,
+         4,4,4,4,4,4,4,4,4,4,
+         5,5,5,5,5,5,5,5,5,5]
+    y = np.array(y)
 
-    #making y filled with 10 1'2, 10 2's, etc
-    for i in range(100):
-        y[i] = i/10
-        print(i/10)
+    #Code for testing 
+    avg_printer(y, data)
 
-    print(y)
-    return train_test_split(data, y, test_size=.8, shuffle=True)
+    return train_test_split(data, y, train_size=.8, shuffle=True)
 
 
 def waveletTransform(data):
@@ -48,6 +49,45 @@ def waveletTransform(data):
     #extract coefficients from this wavelet
     coeffs = pywt.wavedec(data, wavelet, level=6) #doing 6 because thats what the research paper did
     
-    features = np.sum(coeffs**2)
-    return features
+    energy = 0
+    for coeff in coeffs:
+        energy += np.sum(coeff ** 2)
+
+    return energy
+
+def avg_printer(y, data):
+    print("-------------------")
+    print("Printing AVG ENERGY")
+
+    CC = np.empty(0)
+    CR = np.empty(0)
+    DP = np.empty(0)
+    ST = np.empty(0)
+    ZM = np.empty(0)
+
+    for i in range(len(y)):
+        if y[i] == 1:
+            CC = np.append(CC, data[i])
+        elif y[i] == 2:
+            CR = np.append(CR, data[i])
+        elif y[i] == 3:
+            DP = np.append(DP, data[i])
+        elif y[i] == 4:
+            ST = np.append(ST, data[i])
+        elif y[i] == 5:
+            ZM = np.append(ZM, data[i])
+
+    print("CC AVG", np.mean(CC))
+    print("CR AVG", np.mean(CR))
+    print("DP AVG", np.mean(DP))
+    print("ST AVG", np.mean(ST))
+    print("ZM AVG", np.mean(ZM))
+    
+    print("-------------------")
+
+
+
+
+
+
 
