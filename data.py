@@ -5,6 +5,7 @@ import scipy.io.wavfile as wavfile
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import StratifiedKFold
 from sklearn import tree
+from sklearn import svm
 from sklearn.metrics import accuracy_score
 import os
 
@@ -14,14 +15,16 @@ def load_data(x_path):
     files = os.listdir(x_path)
 
     #data is array of energy in each wave
-    data = np.empty(len(files))
+    data = []
     labels = [None] * len(files)
+
 
     #running read function on every file in directory
     for i, file in enumerate(files):
         name = os.path.join(x_path, file)
         rate, amplitudes = wavfile.read(name)
-        data[i] = wavelet_transform(amplitudes)
+
+        data.append(wavelet_transform(amplitudes))
         labels[i] = file[0:2]
 
     return data, labels
@@ -51,10 +54,11 @@ def train_test_folds(num_folds: int, shuffle: True, features, labels):
         y_test = np.array(labels)[test_index]
 
         # train model
-        model = tree.DecisionTreeClassifier().fit(x_train.reshape(-1,1), y_train)
+        model = tree.DecisionTreeClassifier().fit(x_train, y_train)
+        #model = svm.SVC().fit(x_train.reshape(-1,1), y_train)
 
         # get predictions
-        preds = model.predict(x_test.reshape(-1,1))
+        preds = model.predict(x_test)
         
         # get accuracy score
         score = accuracy_score(y_test, preds)
@@ -65,16 +69,33 @@ def train_test_folds(num_folds: int, shuffle: True, features, labels):
 
 def wavelet_transform(data):
     #creating Daubechies wavelet object
+    max_length = 10000000
     wavelet = pywt.Wavelet('db4')
 
     #extract coefficients from this wavelet
     coeffs = pywt.wavedec(data, wavelet) 
     
-    energy = 0
-    for coeff in coeffs:
-        energy += np.sum(coeff ** 2)
+    coeffs = np.concatenate(coeffs)
 
-    return energy
+    #flatten to handle 2d arrays
+    if coeffs.ndim > 1:
+        coeffs = coeffs.flatten()
+
+    #truncate ones that are too long
+    max_length = 100000
+    if len(coeffs) > max_length:
+        coeffs = coeffs[:max_length]
+    
+    else:
+        coeffs = np.pad(coeffs, (0, max_length - len(coeffs)), mode='constant')
+
+    return coeffs
+    #coeffs = np.pad(coeffs, (0, max_length - len(coeffs)), mode='constant')
+    # energy = 0
+    # for coeff in coeffs:
+    #     energy += np.sum(coeff ** 2)
+
+    # return energy
 
 
 def avg_printer(y, data):
@@ -106,10 +127,3 @@ def avg_printer(y, data):
     print("ZM AVG", np.mean(ZM))
     
     print("-------------------")
-
-
-
-
-
-
-
