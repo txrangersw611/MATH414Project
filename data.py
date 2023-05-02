@@ -8,6 +8,7 @@ from sklearn import tree
 from sklearn import svm
 from sklearn.metrics import accuracy_score
 import os
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 
 
 def load_data(x_path): 
@@ -30,20 +31,9 @@ def load_data(x_path):
     return data, labels
 
 
-def split_data(data, labels):
-    """
-    Splits set into 80% training data and 20% testing data. Returns x_train, x_test, y_train, y_test.
-    """
-
-    #Code for testing 
-    # avg_printer(labels, data)
-
-    return train_test_split(data, labels, train_size=0.8, shuffle=True)
-
-
 def train_test_folds(num_folds: int, shuffle: True, features, labels):
     skf = StratifiedKFold(n_splits=num_folds, shuffle=shuffle)
-    scores = np.empty(num_folds)
+    scores = np.zeros(num_folds)
 
     # loop through each fold
     for i, (train_index, test_index) in enumerate(skf.split(features, labels)):
@@ -54,7 +44,7 @@ def train_test_folds(num_folds: int, shuffle: True, features, labels):
         y_test = np.array(labels)[test_index]
 
         # train model
-        model = tree.DecisionTreeClassifier().fit(x_train, y_train)
+        model = RandomForestClassifier().fit(x_train, y_train)
         #model = svm.SVC().fit(x_train.reshape(-1,1), y_train)
 
         # get predictions
@@ -64,25 +54,27 @@ def train_test_folds(num_folds: int, shuffle: True, features, labels):
         score = accuracy_score(y_test, preds)
         scores[i] = score
 
+        print(scores)
+
     return scores
 
 
 def wavelet_transform(data):
     #creating Daubechies wavelet object
-    max_length = 10000000
     wavelet = pywt.Wavelet('db4')
 
     #extract coefficients from this wavelet
     coeffs = pywt.wavedec(data, wavelet) 
-    
+
     coeffs = np.concatenate(coeffs)
 
-    #flatten to handle 2d arrays
+    
+    #flatten if needed
     if coeffs.ndim > 1:
         coeffs = coeffs.flatten()
 
-    #truncate ones that are too long
-    max_length = 100000
+    #truncate samples that are too long
+    max_length = 5000000
     if len(coeffs) > max_length:
         coeffs = coeffs[:max_length]
     
@@ -90,40 +82,3 @@ def wavelet_transform(data):
         coeffs = np.pad(coeffs, (0, max_length - len(coeffs)), mode='constant')
 
     return coeffs
-    #coeffs = np.pad(coeffs, (0, max_length - len(coeffs)), mode='constant')
-    # energy = 0
-    # for coeff in coeffs:
-    #     energy += np.sum(coeff ** 2)
-
-    # return energy
-
-
-def avg_printer(y, data):
-    print("-------------------")
-    print("Printing AVG ENERGY")
-
-    CC = np.empty(0)
-    CR = np.empty(0)
-    DP = np.empty(0)
-    ST = np.empty(0)
-    ZM = np.empty(0)
-
-    for i in range(len(y)):
-        if y[i] == 1:
-            CC = np.append(CC, data[i])
-        elif y[i] == 2:
-            CR = np.append(CR, data[i])
-        elif y[i] == 3:
-            DP = np.append(DP, data[i])
-        elif y[i] == 4:
-            ST = np.append(ST, data[i])
-        elif y[i] == 5:
-            ZM = np.append(ZM, data[i])
-
-    print("CC AVG", np.mean(CC))
-    print("CR AVG", np.mean(CR))
-    print("DP AVG", np.mean(DP))
-    print("ST AVG", np.mean(ST))
-    print("ZM AVG", np.mean(ZM))
-    
-    print("-------------------")
